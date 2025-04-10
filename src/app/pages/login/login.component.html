@@ -1,0 +1,43 @@
+<div class="login-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Welcome Back! </mat-card-title>
+      <mat-card-subtitle>Log in to continue your journey.</mat-card-subtitle>
+    </mat-card-header>
+
+    <img src="images/yoga_login.png" alt="" />
+
+    <mat-card-content>
+      <div class="login-credentials-container">
+        <p>
+          <mat-form-field appearance="outline">
+            <mat-label>Email address</mat-label>
+            <input matInput placeholder="you@example.com" type="email" />
+            <mat-icon matSuffix>mail</mat-icon>
+          </mat-form-field>
+        </p>
+        <p>
+          <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input
+              matInput
+              placeholder="••••••••"
+              type="password"
+            />
+            <mat-icon matSuffix>vpn_key</mat-icon>
+          </mat-form-field>
+        </p>
+        <button mat-flat-button>Login</button>
+      </div>
+
+      <mat-divider class="divider"></mat-divider>
+
+      <div class="registration-container">
+        <p>Don't have an account yet?</p>
+        <button mat-flat-button color="primary" routerLink="/registration">
+          Sign up
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

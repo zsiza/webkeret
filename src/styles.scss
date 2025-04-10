@@ -1,0 +1,92 @@
+@use "@angular/material" as mat;
+
+@font-face {
+  font-family: "Gallient";
+  src: url("/Gallient.ttf") format("truetype");
+}
+@font-face {
+  font-family: "RedHat";
+  src: url("/RedHatDisplay.ttf") format("truetype");
+}
+$brand-font: "Gallient", sans-serif;
+$plain-font: "Redhat", arial;
+
+html {
+  body {
+    margin: 0;
+    padding: 0;
+    height: 100vh; 
+    width: 100%; 
+    overflow-x: hidden; 
+    background-color: var(--mat-sys-background); 
+    color: var(--mat-sys-on-background);
+
+    background-image:
+      url("/bottom-leaves.png"), url("/corner-leaves.png"),
+      url("/side-leaves.png"), url("/top-leaves.png"), url("/yoga.png"),
+      url("/ellipse.png");
+    background-position:
+      bottom right,
+      // Bottom leaves
+      top right,
+      // Corner leaves
+      right center,
+      // Side leaves
+      top center,
+      // Top leaves
+      top right,
+      //yoga
+      top right; //ellipse
+    background-repeat:
+      no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
+    background-size:
+      30%, 30%, 10%, 45%, 45%, 45%; 
+  }
+
+  @include mat.theme(
+    (
+      color: (
+        primary: mat.$violet-palette,
+      ),
+      typography: (
+        plain-family: $plain-font,
+        brand-family: $brand-font,
+        bold-weight: 900,
+        medium-weight: 500,
+        regular-weight: 300,
+      ),
+      density: 0,
+    )
+  );
+  @include mat.card-overrides(
+    (
+ 
+      title-text-weight: 900
+    )
+  );
+
+  @include mat.slide-toggle-overrides(
+    (
+      track-outline-color: rgb(62, 31, 79),
+    )
+  );
+  @include mat.stepper-overrides(
+    (
+      header-label-text-font: $brand-font,
+      header-label-text-weight: 900,
+      header-selected-state-label-text-weight: 900,
+      header-selected-state-label-text-size: 1.2rem,
+    )
+  );
+
+  .darkMode {
+    @include mat.theme(
+      (
+        color: (
+          primary: mat.$violet-palette,
+          theme-type: dark,
+        ),
+      )
+    );
+  }
+}

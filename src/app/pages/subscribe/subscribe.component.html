@@ -1,0 +1,144 @@
+<mat-card>
+
+
+  <mat-card-header>
+    <mat-card-title> Unlock Your Full Potential </mat-card-title>
+    <mat-card-subtitle>
+      Subscribe for unlimited access to all yoga classes and guided meditations.
+    </mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <mat-card class="inner-card">
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon> spa </mat-icon>
+          All Access Membership
+        </mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content>
+        <ul>
+          <li>Unlimited video library</li>
+          <li>Guided meditations</li>
+          <li>Weekly new classes</li>
+          <li>Cancel anytime</li>
+        </ul>
+        <div class="card-data">
+          <p>
+            <mat-form-field appearance="outline">
+              <mat-label>Card Number</mat-label>
+              <input
+                matInput
+                type="text"
+                inputmode="numeric"
+                maxlength="19"
+                placeholder="xxxx xxxx xxxx xxxx"
+              />
+              <mat-icon matSuffix>card</mat-icon>
+            </mat-form-field>
+          </p>
+
+          <div class="card-details">
+            <mat-form-field appearance="outline">
+              <mat-label>Month/Year</mat-label>
+              <input
+                matInput
+                placeholder="MM/YY"
+                type="text"
+                inputmode="numeric"
+                maxlength="5"
+              />
+              <mat-icon matSuffix>card</mat-icon>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>CVV</mat-label>
+              <input
+                matInput
+                placeholder="CVV"
+                type="password"
+                inputmode="numeric"
+                maxlength="4"
+              />
+              <mat-icon matSuffix>card</mat-icon>
+            </mat-form-field>
+          </div>
+
+          <p>
+            <mat-form-field appearance="outline">
+              <mat-label>Billing Email</mat-label>
+              <input matInput placeholder="your@email.com" type="email" />
+              <mat-icon matSuffix>mail</mat-icon>
+            </mat-form-field>
+          </p>
+          <button mat-flat-button routerLink="/yoga">
+            Start My Journey - Subscribe Now
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </mat-card-content>
+
+  <mat-button-toggle-group name="currency" aria-label="Currency" [(ngModel)]="selectedCurrency">
+    <mat-button-toggle value="USD">USD</mat-button-toggle>
+    <mat-button-toggle value="EUR">EUR</mat-button-toggle>
+    <mat-button-toggle value="GBP">GBP</mat-button-toggle>
+  </mat-button-toggle-group>
+  
+  <table mat-table
+       [dataSource]="dataSource" multiTemplateDataRows
+       class="mat-elevation-z8">
+  @for (column of columnsToDisplay; track column) {
+    <ng-container matColumnDef="{{column}}">
+      <th mat-header-cell *matHeaderCellDef>{{column}}</th> 
+      <td mat-cell *matCellDef="let element">{{element[column]}}</td>
+    </ng-container>
+  }
+  <ng-container matColumnDef="expand">
+    <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
+    <td mat-cell *matCellDef="let element">
+      <button
+        mat-icon-button
+        aria-label="expand row"
+        (click)="toggle(element); $event.stopPropagation()"
+        class="example-toggle-button"
+        [class.example-toggle-button-expanded]="isExpanded(element)">
+        <mat-icon>keyboard_arrow_down</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+
+
+  <ng-container matColumnDef="expandedDetail">
+    <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplayWithExpand.length">
+      <div class="example-element-detail-wrapper" [class.example-element-detail-wrapper-expanded]="isExpanded(element)">
+        <div class="example-element-detail">
+          <h3>{{ element.name }} Subscription Details</h3>
+          <ul>
+            <li *ngFor="let feature of element.features">{{ feature }}</li>
+          </ul>
+          <p><strong>Duration:</strong> 
+            {{ element.durationInMonths > 0 ? element.durationInMonths + ' month(s)' : 'Unlimited' }}
+          </p>
+          <p><strong>Price:</strong>
+            {{ element.price === 0 ? 'Free' : (element.price | currencyConvert:selectedCurrency) }}
+          </p>
+          
+        </div>
+      </div>
+    </td>
+  </ng-container>
+  
+  <tr mat-header-row *matHeaderRowDef="columnsToDisplayWithExpand"></tr>
+  <tr mat-row *matRowDef="let element; columns: columnsToDisplayWithExpand;"
+      class="example-element-row"
+      [class.example-expanded-row]="isExpanded(element)"
+      (click)="toggle(element)">
+  </tr>
+  <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+</table>
+
+
+
+</mat-card>

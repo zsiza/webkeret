@@ -1,0 +1,59 @@
+@use "../../../styles.scss" as *; 
+
+mat-sidenav {
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  height: 500px;
+  padding: 10px;
+  z-index: 2000; 
+
+  &.mat-drawer-opened {
+    flex-direction: column;
+    box-shadow: 0 0 10px rgba(86, 45, 113, 0.5);
+    font-family: $brand-font;
+
+  }
+
+  button {
+    display: block; 
+    margin: 10px 0; 
+  }
+}
+
+.right-side {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+}
+
+mat-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  div.right-side {
+    margin-left: auto;
+  }
+
+  .small-button {
+    background-color: transparent;
+    font-size: large;
+    font-weight: bold;
+    font-family: $brand-font;
+  }
+
+
+  .button {
+    background-color: transparent;
+    font-size: large;
+    font-weight: bold;
+    font-family: $brand-font;
+  }
+}
+
+.menu-button {
+  margin-right: 10px;
+}

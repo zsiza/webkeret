@@ -1,0 +1,150 @@
+<mat-card *ngIf="selectedVideo" appearance="outlined" class="mat-card-main">
+  <mat-card-header class="mat-card-header-main">
+    <mat-card-title>{{ selectedVideo.title }}</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content class="mat-card-content-main">
+    <video
+      #videoPlayer
+      muted
+      preload="auto"
+      loop="false"
+      class="frozen-video"
+      controls
+    >
+      <source [src]="selectedVideo.filePath" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+
+    <mat-stepper orientation="vertical" [linear]="true" #stepper>
+      <mat-step>
+        <ng-template matStepLabel>About This Session</ng-template>
+        <ng-template matStepContent>
+          <p><strong>Title:</strong> {{ selectedVideo.title }}</p>
+          <p><strong>Description:</strong> {{ selectedVideo.description }}</p>
+          <p><strong>Duration:</strong> {{ selectedVideo.duration }} minutes</p>
+          <button mat-button matStepperNext>Next</button>
+        </ng-template>
+      </mat-step>
+
+      <mat-step>
+        <ng-template matStepLabel>Prepare Your Body</ng-template>
+        <ng-template matStepContent>
+          <p>Before starting, try these warm-up exercises:</p>
+          <ul>
+            <li>💨 Take deep belly breaths for 30 seconds.</li>
+            <li>🧘‍♀️ Do a light full-body stretch.</li>
+            <li>🚶‍♂️ Walk around for a minute to loosen up.</li>
+          </ul>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </ng-template>
+      </mat-step>
+
+      <mat-step>
+        <ng-template matStepLabel>Cool Down & Reflect</ng-template>
+        <ng-template matStepContent>
+          <p>After your session, take a moment to relax:</p>
+          <ul>
+            <li>🌿 Sit in stillness for 2 minutes.</li>
+            <li>💧 Hydrate with a glass of water.</li>
+            <li>✍️ Journal how you feel after the session.</li>
+          </ul>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button (click)="stepper.reset()">Finish</button>
+        </ng-template>
+      </mat-step>
+    </mat-stepper>
+  </mat-card-content>
+
+  <mat-card-footer class="mat-card-footer-main">
+    <mat-chip-set aria-label="chips">
+      <mat-chip *ngFor="let chip of selectedVideo.chips">{{ chip }}</mat-chip>
+    </mat-chip-set>
+  </mat-card-footer>
+
+  <mat-divider></mat-divider>
+
+  <div class="rating-container">
+    <mat-card-header>
+      <mat-card-title class="comment-text">Comments</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-actions class="mat-card-actions-main">
+      <mat-form-field class="example-full-width">
+        <mat-label>Leave a comment</mat-label>
+        <textarea
+          matInput
+          [(ngModel)]="newComment"
+          placeholder="Ex. It makes me feel..."
+        ></textarea>
+      </mat-form-field>
+      <button mat-button (click)="addComment()">Post</button>
+    </mat-card-actions>
+
+    <div *ngFor="let rating of ratings" class="comment-item">
+      <mat-card appShadow>
+        <mat-card-header>
+          <mat-card-title
+            ><strong>{{ rating.user.name }}:</strong>
+            <span class="stars">
+              <ng-container *ngFor="let _ of [].constructor(rating.stars)">
+                ⭐
+              </ng-container>
+            </span>
+          </mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content class="mat-card-content-main">
+          <p>
+            {{ rating.comment }}
+          </p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</mat-card>
+
+<!-- Related Videos -->
+
+<div class="card-container">
+  <mat-card
+    *ngFor="let video of relatedVideos"
+    appearance="outlined"
+    class="video-card"
+  >
+    <mat-card-content class="video-wrapper">
+      <!-- Video -->
+      <a *ngIf="video.access !== 'premium'" [routerLink]="['/video', video.id]">
+        <video
+          muted
+          preload="auto"
+          class="frozen-video"
+          (click)="selectVideo(video)"
+        >
+          <source [src]="video.filePath" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </a>
+      <video
+        *ngIf="video.access === 'premium'"
+        muted
+        preload="auto"
+        class="frozen-video"
+      >
+        <source [src]="video.filePath" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+
+      <div *ngIf="video.access === 'premium'" class="overlay">
+        <mat-icon class="lock-icon">lock</mat-icon>
+      </div>
+    </mat-card-content>
+
+    <mat-card-footer class="example-card-footer">
+      <mat-chip-set aria-label="Video traits">
+        <mat-chip *ngFor="let chip of video.chips">{{ chip }}</mat-chip>
+      </mat-chip-set>
+    </mat-card-footer>
+  </mat-card>
+</div>

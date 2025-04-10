@@ -1,0 +1,36 @@
+<div class="card-container">
+  <mat-card
+    *ngFor="let video of videos"
+    appearance="outlined"
+    class="video-card"
+  >
+    <mat-card-content class="video-wrapper">
+      <a *ngIf="video.access !== 'premium'" [routerLink]="['/video', video.id]">
+        <video
+          muted
+          preload="auto"
+          class="frozen-video"
+          (click)="onSelect(video)"
+        >
+          <source [src]="video.filePath" type="video/mp4" />
+        </video>
+      </a>
+      <video
+        *ngIf="video.access === 'premium'"
+        muted
+        preload="auto"
+        class="frozen-video"
+      >
+        <source [src]="video.filePath" type="video/mp4" />
+      </video>
+      <div *ngIf="video.access === 'premium'" class="overlay">
+        <mat-icon class="lock-icon">lock</mat-icon>
+      </div>
+    </mat-card-content>
+    <mat-card-footer class="example-card-footer">
+      <mat-chip-set>
+        <mat-chip *ngFor="let chip of video.chips">{{ chip }}</mat-chip>
+      </mat-chip-set>
+    </mat-card-footer>
+  </mat-card>
+</div>
