@@ -22,7 +22,7 @@
         <ng-template matStepContent>
           <p><strong>Title:</strong> {{ selectedVideo.title }}</p>
           <p><strong>Description:</strong> {{ selectedVideo.description }}</p>
-          <p><strong>Duration:</strong> {{ selectedVideo.duration }} minutes</p>
+          <p><strong>Duration:</strong> {{ selectedVideo.duration | time }}</p>
           <button mat-button matStepperNext>Next</button>
         </ng-template>
       </mat-step>

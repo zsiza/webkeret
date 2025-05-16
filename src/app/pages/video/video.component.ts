@@ -25,7 +25,7 @@ import { FormsModule } from '@angular/forms';
 import { HighlightDirective } from '../../shared/directives/highlight.directive';
 import { MatInputModule } from '@angular/material/input';
 import { AuthService } from '../../shared/services/auth.service';
-
+import { TimePipe } from '../../shared/pipes/time.pipe';
 @Component({
   selector: 'app-video',
   standalone: true,
@@ -44,6 +44,7 @@ import { AuthService } from '../../shared/services/auth.service';
     HighlightDirective,
     MatFormFieldModule,
     MatInputModule,
+    TimePipe,
   ],
   templateUrl: './video.component.html',
   styleUrls: ['./video.component.scss'],
