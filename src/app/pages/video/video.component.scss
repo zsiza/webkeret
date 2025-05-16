@@ -1,4 +1,4 @@
-@use "../../../styles.scss" as *; 
+@use "../../../styles.scss" as *;
 
 .mat-card-main {
   .mat-card-header-main {
@@ -107,7 +107,7 @@ mat-divider {
 }
 @media screen and (max-width: 1320px) {
   .mat-card-main {
-    margin: 10px auto; 
+    margin: 10px auto;
     align-self: center;
     align-items: center;
 

@@ -12,7 +12,12 @@
         <p>
           <mat-form-field appearance="outline">
             <mat-label>Email address</mat-label>
-            <input matInput placeholder="you@example.com" type="email" />
+            <input
+              matInput
+              placeholder="you@example.com"
+              type="email"
+              [formControl]="email"
+            />
             <mat-icon matSuffix>mail</mat-icon>
           </mat-form-field>
         </p>
@@ -23,11 +28,14 @@
               matInput
               placeholder="••••••••"
               type="password"
+              [formControl]="password"
             />
             <mat-icon matSuffix>vpn_key</mat-icon>
           </mat-form-field>
         </p>
-        <button mat-flat-button>Login</button>
+        <button mat-flat-button color="accent" (click)="login()">Login</button>
+
+        <p class="error-message" *ngIf="loginError">{{ loginError }}</p>
       </div>
 
       <mat-divider class="divider"></mat-divider>

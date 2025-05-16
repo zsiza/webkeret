@@ -15,20 +15,15 @@ html {
   body {
     margin: 0;
     padding: 0;
-    height: 100vh; 
-    width: 100%; 
-    overflow-x: hidden; 
-    background-color: var(--mat-sys-background); 
+    height: 100vh;
+    width: 100%;
+    overflow-x: hidden;
+    background-color: var(--mat-sys-background);
     color: var(--mat-sys-on-background);
 
-    background-image:
-      url("/bottom-leaves.png"), url("/corner-leaves.png"),
-      url("/side-leaves.png"), url("/top-leaves.png"), url("/yoga.png"),
-      url("/ellipse.png");
-    background-position:
-      bottom right,
-      // Bottom leaves
-      top right,
+    background-image: url("/corner-leaves.png"), url("/side-leaves.png"),
+      url("/top-leaves.png"), url("/yoga.png"), url("/ellipse.png");
+    background-position: top right,
       // Corner leaves
       right center,
       // Side leaves
@@ -37,10 +32,9 @@ html {
       top right,
       //yoga
       top right; //ellipse
-    background-repeat:
-      no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
-    background-size:
-      30%, 30%, 10%, 45%, 45%, 45%; 
+    background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat,
+      no-repeat;
+    background-size: 30%, 30%, 10%, 45%, 45%, 45%;
   }
 
   @include mat.theme(
@@ -60,8 +54,7 @@ html {
   );
   @include mat.card-overrides(
     (
- 
-      title-text-weight: 900
+      title-text-weight: 900,
     )
   );
 

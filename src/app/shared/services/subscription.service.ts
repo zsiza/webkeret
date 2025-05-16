@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subscription } from './models/subscription';
+import { Subscription } from '../../models/subscription';
 
 @Injectable({
   providedIn: 'root',
@@ -8,14 +8,14 @@ export class SubscriptionService {
   private subscriptions: Subscription[] = [
     {
       id: 'free',
-      name: 'Free',
+      premium: false,
       price: 0,
       durationInMonths: 0,
       features: ['Limited video access', 'No guided meditations'],
     },
     {
       id: 'premium',
-      name: 'Premium',
+      premium: true,
       price: 14.99,
       durationInMonths: 1,
       features: [
@@ -31,8 +31,7 @@ export class SubscriptionService {
   getSubscriptions(): Subscription[] {
     return this.subscriptions;
   }
-
-  getSubscriptionByName(name: 'Free' | 'Premium'): Subscription | undefined {
-    return this.subscriptions.find((sub) => sub.name === name);
+  getSubscriptionByType(premium: boolean): Subscription | undefined {
+    return this.subscriptions.find((sub) => sub.premium === premium);
   }
 }

@@ -1,7 +1,7 @@
 import { Component, inject, OnInit, Signal } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { Video } from '../../models/video';
-import { VideoService } from '../../video.service';
+import { VideoService } from '../../shared/services/video.service';
 import { CommonModule } from '@angular/common';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -34,7 +34,7 @@ export class YogaComponent implements OnInit {
   constructor(private router: Router, private videoService: VideoService) {}
 
   selectVideo(video: Video): void {
-    this.router.navigate(['/video', video.id]); 
+    this.router.navigate(['/video', video.id]);
   }
   videos: Video[] = [];
   filteredVideos: Video[] = [];
@@ -64,7 +64,7 @@ export class YogaComponent implements OnInit {
       this.chipOptions.includes(value)
     ) {
       this.searchChips.push(value);
-      this.filterVideos(); 
+      this.filterVideos();
     }
 
     if (event.chipInput) {
@@ -90,7 +90,7 @@ export class YogaComponent implements OnInit {
 
   filterVideos(): void {
     if (this.searchChips.length === 0) {
-      this.filteredVideos = this.videos; 
+      this.filteredVideos = this.videos;
       return;
     }
 

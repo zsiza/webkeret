@@ -1,6 +1,4 @@
 <mat-card>
-
-
   <mat-card-header>
     <mat-card-title> Unlock Your Full Potential </mat-card-title>
     <mat-card-subtitle>
@@ -71,7 +69,7 @@
               <mat-icon matSuffix>mail</mat-icon>
             </mat-form-field>
           </p>
-          <button mat-flat-button routerLink="/yoga">
+          <button mat-flat-button (click)="subscribe()">
             Start My Journey - Subscribe Now
           </button>
         </div>
@@ -79,66 +77,91 @@
     </mat-card>
   </mat-card-content>
 
-  <mat-button-toggle-group name="currency" aria-label="Currency" [(ngModel)]="selectedCurrency">
+  <mat-button-toggle-group
+    name="currency"
+    aria-label="Currency"
+    [(ngModel)]="selectedCurrency"
+  >
     <mat-button-toggle value="USD">USD</mat-button-toggle>
     <mat-button-toggle value="EUR">EUR</mat-button-toggle>
     <mat-button-toggle value="GBP">GBP</mat-button-toggle>
   </mat-button-toggle-group>
-  
-  <table mat-table
-       [dataSource]="dataSource" multiTemplateDataRows
-       class="mat-elevation-z8">
-  @for (column of columnsToDisplay; track column) {
-    <ng-container matColumnDef="{{column}}">
-      <th mat-header-cell *matHeaderCellDef>{{column}}</th> 
-      <td mat-cell *matCellDef="let element">{{element[column]}}</td>
+
+  <table
+    mat-table
+    [dataSource]="dataSource"
+    multiTemplateDataRows
+    class="mat-elevation-z8"
+  >
+    @for (column of columnsToDisplay; track column) {
+    <ng-container matColumnDef="{{ column }}">
+      <th mat-header-cell *matHeaderCellDef>{{ column }}</th>
+      <td mat-cell *matCellDef="let element">{{ element[column] }}</td>
     </ng-container>
-  }
-  <ng-container matColumnDef="expand">
-    <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
-    <td mat-cell *matCellDef="let element">
-      <button
-        mat-icon-button
-        aria-label="expand row"
-        (click)="toggle(element); $event.stopPropagation()"
-        class="example-toggle-button"
-        [class.example-toggle-button-expanded]="isExpanded(element)">
-        <mat-icon>keyboard_arrow_down</mat-icon>
-      </button>
-    </td>
-  </ng-container>
+    }
+    <ng-container matColumnDef="expand">
+      <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
+      <td mat-cell *matCellDef="let element">
+        <button
+          mat-icon-button
+          aria-label="expand row"
+          (click)="toggle(element); $event.stopPropagation()"
+          class="example-toggle-button"
+          [class.example-toggle-button-expanded]="isExpanded(element)"
+        >
+          <mat-icon>keyboard_arrow_down</mat-icon>
+        </button>
+      </td>
+    </ng-container>
 
-
-
-  <ng-container matColumnDef="expandedDetail">
-    <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplayWithExpand.length">
-      <div class="example-element-detail-wrapper" [class.example-element-detail-wrapper-expanded]="isExpanded(element)">
-        <div class="example-element-detail">
-          <h3>{{ element.name }} Subscription Details</h3>
-          <ul>
-            <li *ngFor="let feature of element.features">{{ feature }}</li>
-          </ul>
-          <p><strong>Duration:</strong> 
-            {{ element.durationInMonths > 0 ? element.durationInMonths + ' month(s)' : 'Unlimited' }}
-          </p>
-          <p><strong>Price:</strong>
-            {{ element.price === 0 ? 'Free' : (element.price | currencyConvert:selectedCurrency) }}
-          </p>
-          
+    <ng-container matColumnDef="expandedDetail">
+      <td
+        mat-cell
+        *matCellDef="let element"
+        [attr.colspan]="columnsToDisplayWithExpand.length"
+      >
+        <div
+          class="example-element-detail-wrapper"
+          [class.example-element-detail-wrapper-expanded]="isExpanded(element)"
+        >
+          <div class="example-element-detail">
+            <h3>{{ element.name }} Subscription Details</h3>
+            <ul>
+              <li *ngFor="let feature of element.features">{{ feature }}</li>
+            </ul>
+            <p>
+              <strong>Duration:</strong>
+              {{
+                element.durationInMonths > 0
+                  ? element.durationInMonths + " month(s)"
+                  : "Unlimited"
+              }}
+            </p>
+            <p>
+              <strong>Price:</strong>
+              {{
+                element.price === 0
+                  ? "Free"
+                  : (element.price | currencyConvert : selectedCurrency)
+              }}
+            </p>
+          </div>
         </div>
-      </div>
-    </td>
-  </ng-container>
-  
-  <tr mat-header-row *matHeaderRowDef="columnsToDisplayWithExpand"></tr>
-  <tr mat-row *matRowDef="let element; columns: columnsToDisplayWithExpand;"
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplayWithExpand"></tr>
+    <tr
+      mat-row
+      *matRowDef="let element; columns: columnsToDisplayWithExpand"
       class="example-element-row"
       [class.example-expanded-row]="isExpanded(element)"
-      (click)="toggle(element)">
-  </tr>
-  <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
-</table>
-
-
-
+      (click)="toggle(element)"
+    ></tr>
+    <tr
+      mat-row
+      *matRowDef="let row; columns: ['expandedDetail']"
+      class="example-detail-row"
+    ></tr>
+  </table>
 </mat-card>

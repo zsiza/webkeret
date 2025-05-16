@@ -10,8 +10,24 @@
     <button mat-button routerLink="/yoga" (click)="sidenav.close()">
       Yoga
     </button>
-    <button mat-button routerLink="/registration" (click)="sidenav.close()">
+    <button *ngIf="isLoggedIn" mat-button (click)="logout(); sidenav.close()">
+      Logout
+    </button>
+    <button
+      *ngIf="!isLoggedIn"
+      mat-button
+      routerLink="/registration"
+      (click)="sidenav.close()"
+    >
       Registration
+    </button>
+    <button
+      *ngIf="!isLoggedIn"
+      mat-button
+      routerLink="/login"
+      (click)="sidenav.close()"
+    >
+      Login
     </button>
     <button mat-button routerLink="/subscribe" (click)="sidenav.close()">
       <mat-icon>favorite</mat-icon>
@@ -43,10 +59,30 @@
           <button mat-button class="small-button" routerLink="/yoga">
             Yoga
           </button>
-          <button mat-button class="small-button" routerLink="/registration">
+          <button
+            *ngIf="!isLoggedIn"
+            mat-button
+            class="small-button"
+            routerLink="/registration"
+          >
             Registration
           </button>
-
+          <button
+            *ngIf="!isLoggedIn"
+            mat-button
+            class="small-button"
+            routerLink="/login"
+          >
+            Login
+          </button>
+          <button
+            *ngIf="isLoggedIn"
+            (click)="logout()"
+            mat-button
+            class="small-button"
+          >
+            Logout
+          </button>
           <div class="right-side">
             <button mat-fab extended class="button" routerLink="/subscribe">
               <mat-icon>favorite</mat-icon>

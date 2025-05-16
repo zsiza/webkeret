@@ -114,8 +114,7 @@
     class="video-card"
   >
     <mat-card-content class="video-wrapper">
-      <!-- Video -->
-      <a *ngIf="video.access !== 'premium'" [routerLink]="['/video', video.id]">
+      <a [routerLink]="['/video', video.id]">
         <video
           muted
           preload="auto"
@@ -123,20 +122,9 @@
           (click)="selectVideo(video)"
         >
           <source [src]="video.filePath" type="video/mp4" />
-          Your browser does not support the video tag.
         </video>
       </a>
-      <video
-        *ngIf="video.access === 'premium'"
-        muted
-        preload="auto"
-        class="frozen-video"
-      >
-        <source [src]="video.filePath" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
-
-      <div *ngIf="video.access === 'premium'" class="overlay">
+      <div *ngIf="video.access === 'premium' && !isSubscribed" class="overlay">
         <mat-icon class="lock-icon">lock</mat-icon>
       </div>
     </mat-card-content>

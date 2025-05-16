@@ -1,4 +1,4 @@
-
+import { AuthService } from './shared/services/auth.service';
 import {
   Component,
   computed,
@@ -14,8 +14,9 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
-import { ThemeService } from './theme.service';
+import { ThemeService } from './shared/services/theme.service';
 import { CommonModule } from '@angular/common';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -35,4 +36,21 @@ export class AppComponent {
   private themeService = inject(ThemeService);
 
   themeClass = computed(() => this.themeService.selectedThemeClass());
+
+  isLoggedIn = false;
+  private authSubscription?: Subscription;
+
+  constructor(private authService: AuthService) {}
+  ngOnInit() {
+    this.authSubscription = this.authService.currentUser.subscribe((user) => {
+      this.isLoggedIn = !!user;
+      localStorage.setItem('isLoggedIn', this.isLoggedIn ? 'true' : 'false');
+    });
+  }
+  ngOnDestroy() {
+    this.authSubscription?.unsubscribe();
+  }
+  logout(): void {
+    this.authService.logout();
+  }
 }

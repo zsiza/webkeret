@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Video } from '../app/models/video';
+import { Video } from '../../models/video';
 import { Router } from '@angular/router';
 
 @Injectable({

@@ -1,48 +1,86 @@
-
 <div class="page">
-
   <mat-card class="image-card">
     <img src="images/breathing.png" alt="meditation" />
   </mat-card>
-
 
   <mat-card>
     <mat-card-header>
       <mat-card-title> Start your yoga journey </mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      
       <mat-stepper
         class="example-stepper"
         [linear]="true"
         orientation="vertical"
       >
-        <mat-step [stepControl]="firstFormGroup" label="Fill out your name">
-          <form [formGroup]="firstFormGroup">
-            <mat-form-field>
-              <mat-label>Name</mat-label>
-              <input
-                matInput
-                placeholder="Last name, First name"
-                formControlName="firstCtrl"
-                required
-              />
-            </mat-form-field>
+        <mat-step
+          [stepControl]="signUpForm.get('name')!"
+          label="Fill out your name"
+        >
+          <form [formGroup]="signUpForm">
+            <div formGroupName="name">
+              <mat-form-field>
+                <mat-label>First Name</mat-label>
+                <input
+                  matInput
+                  placeholder="First name"
+                  formControlName="firstname"
+                  required
+                />
+                <mat-error
+                  *ngIf="
+                    signUpForm.get('name.firstname')?.invalid &&
+                    signUpForm.get('name.firstname')?.touched
+                  "
+                >
+                  First name is required
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field>
+                <mat-label>Last Name</mat-label>
+                <input
+                  matInput
+                  placeholder="Last name"
+                  formControlName="lastname"
+                  required
+                />
+                <mat-error
+                  *ngIf="
+                    signUpForm.get('name.lastname')?.invalid &&
+                    signUpForm.get('name.lastname')?.touched
+                  "
+                >
+                  Last name is required
+                </mat-error>
+              </mat-form-field>
+            </div>
             <div>
               <button mat-button matStepperNext>Next</button>
             </div>
           </form>
         </mat-step>
-        <mat-step [stepControl]="secondFormGroup" label="Fill out your address">
-          <form [formGroup]="secondFormGroup">
+        <mat-step
+          [stepControl]="signUpForm.get('email')!"
+          label="Fill out your email"
+        >
+          <form [formGroup]="signUpForm">
             <mat-form-field>
-              <mat-label>Address</mat-label>
+              <mat-label>Email</mat-label>
               <input
                 matInput
-                formControlName="secondCtrl"
-                placeholder="Ex. 1 Main St, New York, NY"
+                formControlName="email"
+                placeholder="yoga@gmail.com"
                 required
               />
+              <mat-error
+                *ngIf="
+                  signUpForm.get('email')?.invalid &&
+                  signUpForm.get('email')?.touched
+                "
+              >
+                Please enter a valid email address
+              </mat-error>
             </mat-form-field>
             <div>
               <button mat-button matStepperPrevious>Back</button>
@@ -51,18 +89,58 @@
           </form>
         </mat-step>
         <mat-step
-          [stepControl]="thirdFormGroup"
-          label="Fill out your phone number"
+          [stepControl]="signUpForm.get('password')!"
+          label="Fill out your password"
         >
-          <form [formGroup]="thirdFormGroup">
+          <form [formGroup]="signUpForm">
             <mat-form-field>
-              <mat-label>Phone number</mat-label>
+              <mat-label>Password</mat-label>
               <input
                 matInput
-                formControlName="thirdCtrl"
-                placeholder="Ex. 12345678"
+                type="password"
+                formControlName="password"
+                placeholder="••••••••"
                 required
               />
+              <mat-error
+                *ngIf="
+                  signUpForm.get('password')?.invalid &&
+                  signUpForm.get('password')?.touched
+                "
+              >
+                Password is required (minimum 8 characters)
+              </mat-error>
+            </mat-form-field>
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step
+          [stepControl]="signUpForm.get('rePassword')!"
+          label="Validate your password"
+        >
+          <form [formGroup]="signUpForm">
+            <mat-form-field>
+              <mat-label>Confirm Password</mat-label>
+              <input
+                matInput
+                type="password"
+                formControlName="rePassword"
+                placeholder="••••••••"
+                required
+              />
+              <mat-error
+                *ngIf="signUpForm.get('rePassword')?.errors?.['required'] && signUpForm.get('rePassword')?.touched"
+              >
+                Confirm password is required
+              </mat-error>
+              <mat-error
+                *ngIf="signUpForm.get('rePassword')?.errors?.['passwordMismatch'] && signUpForm.get('rePassword')?.touched"
+              >
+                Passwords don't match
+              </mat-error>
             </mat-form-field>
             <div>
               <button mat-button matStepperPrevious>Back</button>
@@ -73,12 +151,17 @@
         <mat-step>
           <ng-template matStepLabel>Done</ng-template>
           <p>You are now done.</p>
+          <div *ngIf="signupError" class="error-message">
+            {{ signupError }}
+          </div>
           <div>
             <button mat-button matStepperPrevious>Back</button>
+            <button mat-flat-button color="primary" (click)="signup()">
+              Sign Up
+            </button>
           </div>
         </mat-step>
       </mat-stepper>
-
 
       <div class="login-container">
         <p>Already have an account?</p>
@@ -86,8 +169,6 @@
           Login
         </button>
       </div>
-        
     </mat-card-content>
   </mat-card>
-  
 </div>

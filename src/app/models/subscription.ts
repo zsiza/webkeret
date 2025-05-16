@@ -1,6 +1,6 @@
 export interface Subscription {
   id: string;
-  name: 'Free' | 'Premium';
+  premium: boolean;
   price: number;
   durationInMonths: number;
   features: string[];
