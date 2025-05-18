@@ -9,12 +9,17 @@ import {
   createUserWithEmailAndPassword,
 } from '@angular/fire/auth';
 import {
+  CollectionReference,
+  DocumentData,
   Firestore,
   collection,
   doc,
   getDoc,
+  getDocs,
   setDoc,
   updateDoc,
+  where,
+  query,
 } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { User } from '../../models/user';
@@ -46,6 +51,31 @@ export class AuthService {
   isLoggedIn(): Observable<FirebaseUser | null> {
     return this.currentUser;
   }
+  getUserId(): string {
+    const user = this.auth.currentUser;
+    return user ? user.uid : '';
+  }
+  getUserNameById(userId: string): Promise<string | null> {
+    const usersRef = collection(
+      this.firestore,
+      'users'
+    ) as CollectionReference<User>;
+    const q = query(usersRef, where('id', '==', userId));
+    return getDocs(q)
+      .then((querySnapshot) => {
+        if (querySnapshot.empty) {
+          return null; // No user found
+        }
+        const userDoc = querySnapshot.docs[0];
+        const userData = userDoc.data();
+        return `${userData.name.firstname} ${userData.name.lastname}`;
+      })
+      .catch((error) => {
+        console.error('Error fetching user name:', error);
+        return null;
+      });
+  }
+
   updateLoginStatus(isLoggedIn: boolean): void {
     localStorage.setItem('isLoggedIn', isLoggedIn ? 'true' : 'false');
   }

@@ -91,6 +91,8 @@ mat-divider {
   }
   .comment-text {
     font-size: 30px;
+    font-family: $brand-font;
+
     align-self: flex-start;
   }
   mat-card {
@@ -103,6 +105,10 @@ mat-divider {
       display: flex;
       justify-content: flex-start;
     }
+  }
+  .spinner {
+    height: 100px;
+    width: 300px;
   }
 }
 @media screen and (max-width: 1320px) {
